@@ -2,8 +2,6 @@
 
 import Carrousel from "@/components/home/Carrousel";
 import BreweryCards from "@/components/home/BreweryCards";
-import Header from "@/components/global/Header";
-import Navbar from "@/components/global/Navbar";
 import { useBreweriesPagination } from "@/components/useBreweriesPagination";
 import { useBreweriesByCityPagination } from "@/components/useBreweriesByCityPagination";
 import PromoAlert from "@/components/home/PromoAlert";
@@ -30,9 +28,9 @@ export default function Home() {
 
   return (
     <>
-      <Header />
-      <PromoAlert />
+     
       <main className="flex flex-col w-full bg-background px-4 gap-2 pt-6">
+      <PromoAlert />
         <Carrousel title="Todas las opciones">
           <BreweryCards
             data={allBreweries}
@@ -52,7 +50,6 @@ export default function Home() {
           ></BreweryCards>
         </Carrousel> */}
       </main>
-      <Navbar />
     </>
   );
 }

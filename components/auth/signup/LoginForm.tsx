@@ -1,19 +1,32 @@
 'use client'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { signInSchema, TSSignInSchema } from '@/schemas/auth'
+import { loginSchema, TSLoginSchema } from '@/actions/login/schema'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { login } from '@/actions/login/action'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
+import { routes } from '@/constants/routes'
 
 const LoginForm = () => {
-  const { register, handleSubmit, formState: { errors, isLoading } } = useForm<TSSignInSchema>({
-    resolver: zodResolver(signInSchema)
+  const router = useRouter()
+  const { register, handleSubmit, formState: { errors, isLoading } } = useForm<TSLoginSchema>({
+    resolver: zodResolver(loginSchema)
   })
 
-  const onSubmit = (data: TSSignInSchema) => {
+  const onSubmit = async (data: TSLoginSchema) => {
+    const response = await login(data)
     console.log(data)
+    if (response.success) {
+      toast.success(response.success);
+      router.push(routes.home)
+    }
+    if (response.error) {
+      toast.error(response.error);
+    }
   }
 
   return (
