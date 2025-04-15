@@ -16,12 +16,30 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { STATES } from '@/mocks'
+import { signup } from '@/services/auth'
+import { useRouter } from 'next/navigation'
+import { routes } from '@/constants/routes'
+import { toast } from 'sonner'
 const SignupForm = () => {
+  const router = useRouter()
   const { register, setValue, handleSubmit, formState: { errors, isLoading } } = useForm<TSSignUpSchema>({
     resolver: zodResolver(signUpSchema)
   })
 
-  const onSubmit = (data: TSSignUpSchema) => {
+  const onSubmit = async (data: TSSignUpSchema) => {
+    try {
+      const response = await signup(data);
+      console.log(response);
+      if (response.success) {
+        router.push(routes.login)
+      }
+      if (response.error) {
+        toast.error(response.error)
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
     console.log('ddddddddddddddd')
     console.log(data)
   }
