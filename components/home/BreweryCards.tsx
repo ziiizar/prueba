@@ -14,6 +14,9 @@ interface BreweryListProps {
 }
 
 const BreweryCards = ({data, loading, error, hasMore, fetchMoreData}: BreweryListProps) => {
+
+  const uniqueBreweries = data ? [...new Map(data.map(item => [item.id, item])).values()] : [];
+
   return (
     <>
       <InfiniteScroll
@@ -21,19 +24,23 @@ const BreweryCards = ({data, loading, error, hasMore, fetchMoreData}: BreweryLis
         hasMore={hasMore}
         loading={loading}
         loader={
+          <div className="flex justify-center w-full py-4">
             <Spinner className="size-8" />
+          </div>
         }
         endMessage={
-          data &&
-          data.length > 0 && (
+          uniqueBreweries.length > 0 && (
             <NoDataMessage label="No hay más resultados" className="mt-4" />
           )
         }
         error={error && <div>{error}</div>}
       >
-        {data && data.length > 0 ? (
-          data.map((item) => (
-            <div key={item.id} className="snap-start shrink-0 first:pl-0 last:pr-4">
+        {uniqueBreweries.length > 0 ? (
+          uniqueBreweries.map((item) => (
+            <div 
+              key={`${item.id}-${item.name}`} 
+              className="snap-start shrink-0 first:pl-0 last:pr-4"
+            >
               <BreweryCard brewery={item} />
             </div>
           ))
@@ -41,12 +48,6 @@ const BreweryCards = ({data, loading, error, hasMore, fetchMoreData}: BreweryLis
           <h3>No data display</h3>
         )}
       </InfiniteScroll>
-      
-      {loading && (
-        <div className="mx-auto size-8 mt-4">
-          <Spinner className="size-8" />
-        </div>
-      )}
       
       {error && <p className="text-red-500 text-center mt-4">{error}</p>}
       

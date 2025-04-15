@@ -1,9 +1,9 @@
 'use client'
 
 import {signOutAction} from "../../actions/signOut/action";
-import { UserIcon } from "@/icons";
+import { NotificationsIcon, UserIcon } from "@/icons";
 import {  useState } from "react";
-import { Button } from "../ui/button";
+import { Button, ButtonWithGradientBorder } from "../ui/button";
 import Link from "next/link";
 import { routes } from "@/constants/routes";
 
@@ -17,6 +17,9 @@ const AuthButton = ({user}: {user: any}) => {
     <div className="relative flex items-center place-content-center">
       
           {user ? (<>
+            <button>
+          <NotificationsIcon />
+        </button>
             <button 
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             className="rounded-full"
@@ -47,10 +50,14 @@ const AuthButton = ({user}: {user: any}) => {
               </form>
             </div>
           )}
-          </>) : (
+          </>) : (<div className="flex items-center gap-2">
            <Link href={routes.login}>
+              <ButtonWithGradientBorder className="w-20 flex place-content-center items-center h-8" >Signup</ButtonWithGradientBorder>
+           </Link>
+           <Link href={routes.signup}>
               <Button className="w-20" >Login</Button>
            </Link>
+          </div>
           )}
         </div>
   )

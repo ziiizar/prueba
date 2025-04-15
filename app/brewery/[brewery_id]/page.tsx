@@ -18,14 +18,21 @@ const page = async ({
   return (
     <>
     <Header />
-    <main className="flex flex-col w-full bg-background px-4 gap-4 text-foreground pb-8">
-      {brewery && <BreweryInfo brewery={brewery} images={images} />}
+    <main className="flex flex-col w-full min-h-[calc(100vh-8rem)] bg-background">
+      <div className="px-4 sm:px-6 lg:px-8 py-6 space-y-8 w-full max-w-7xl mx-auto">
+        {brewery && <BreweryInfo brewery={brewery} images={images} />}
 
-      <Testimonials />
+        <Testimonials />
 
-      <Button size={"xl"} >Reservar Mesa</Button>
-
-      <ButtonWithGradientBorder />
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <Button size="xl" className="w-full sm:w-auto min-w-[200px]">
+            Reservar Mesa
+          </Button>
+          <ButtonWithGradientBorder >
+            Ver viajes de regreso
+          </ButtonWithGradientBorder>
+        </div>
+      </div>
     </main>
     <Navbar />
     </>

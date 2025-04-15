@@ -16,15 +16,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <body
-        className={ cn(roboto.className, 'antialiased min-h-screen w-sm')}
+        className={cn(
+          roboto.className,
+          'antialiased min-h-screen w-full flex flex-col relative bg-background text-foreground overflow-x-hidden'
+        )}
       >
-      <Toaster />
-      <Header />
-        {children}
-      <Navbar />
-
+        <Toaster position="top-center" />
+        <Header />
+        <div className="flex-1 w-full max-w-screen-2xl mx-auto">
+          {children}
+        </div>
+        <Navbar />
       </body>
     </html>
   );

@@ -5,6 +5,7 @@ import BreweryCards from "@/components/home/BreweryCards";
 import { useBreweriesPagination } from "@/components/useBreweriesPagination";
 import { useBreweriesByCityPagination } from "@/components/useBreweriesByCityPagination";
 import PromoAlert from "@/components/home/PromoAlert";
+
 export default function Home() {
   const userLocation = "California";
   const limit = 5;
@@ -25,31 +26,34 @@ export default function Home() {
     fetchBreweries: fetchBreweriesByState,
   } = useBreweriesByCityPagination({ limit, state: userLocation });
 
-
   return (
-    <>
-     
-      <main className="flex flex-col w-full bg-background px-4 gap-2 pt-6">
-      <PromoAlert />
-        <Carrousel title="Todas las opciones">
-          <BreweryCards
-            data={allBreweries}
-            loading={loading}
-            error={error}
-            hasMore={hasMore}
-            fetchMoreData={fetchBreweries}
-          ></BreweryCards>
-        </Carrousel>
-        {/* <Carrousel title="Opciones en California">
-          <BreweryCards
-            data={breweriesByCity}
-            loading={loadingByCity}
-            error={errorByCity}
-            hasMore={hasMoreByCity}
-            fetchMoreData={fetchBreweriesByCity}
-          ></BreweryCards>
-        </Carrousel> */}
-      </main>
-    </>
+    <main className="flex flex-col w-full min-h-[calc(100vh-8rem)] bg-background">
+      <div className="px-4 sm:px-6 lg:px-8 py-6 space-y-6 w-full max-w-7xl mx-auto">
+        <PromoAlert />
+        <section className="space-y-6">
+          <Carrousel title="Todas las opciones">
+            <BreweryCards
+              data={allBreweries}
+              loading={loading}
+              error={error}
+              hasMore={hasMore}
+              fetchMoreData={fetchBreweries}
+            />
+          </Carrousel>
+
+          
+            <Carrousel title={`Opciones en ${userLocation || 'California'}`}>
+              <BreweryCards
+                data={breweriesByState}
+                loading={loadingByState}
+                error={errorByState}
+                hasMore={hasMoreByState}
+                fetchMoreData={fetchBreweriesByState}
+              />
+            </Carrousel>
+          
+        </section>
+      </div>
+    </main>
   );
 }

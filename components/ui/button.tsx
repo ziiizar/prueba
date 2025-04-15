@@ -57,9 +57,9 @@ export { Button, buttonVariants }
 
 
 
-export const ButtonWithGradientBorder = () => {
+export const ButtonWithGradientBorder = ({children, className}: {children: React.ReactNode, className?: string}) => {
   return (
-    <button className="gradient-border rounded-lg">Click me</button>
+    <button className={cn("gradient-border rounded-lg", className)}>{children}</button>
   )
 }
 
