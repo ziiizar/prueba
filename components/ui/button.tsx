@@ -9,12 +9,12 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-r from-secondary to-primary text-foreground font-medium ",
+        default: "bg-gradient-to-r from-secondary to-primary text-foreground font-medium hover:brightness-120",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
           "border-2 bg-transparent relative before:absolute before:inset-0 before:p-[2px] before:rounded-md before:bg-gradient-to-r before:from-secondary before:to-primary before:-z-10 before:content-[''] after:absolute after:inset-[2px] after:rounded-[5px] after:bg-background after:-z-10 after:content-[''] text-foreground hover:bg-gradient-to-r hover:from-secondary hover:to-primary",
-        secondary:"bg-secondary dark:bg-secondary-apple text-blackolive hover:bg-primary hover:text-sage font-medium",
+        secondary:"bg-secondary  hover:bg-primary  font-medium",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },

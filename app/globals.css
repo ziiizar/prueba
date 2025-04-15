@@ -68,7 +68,7 @@ body {
 
 
 .gradient-border {
-  height: 48px;
+  
   position: relative;
   background-color: black;
   color: white;
@@ -86,7 +86,7 @@ body {
   position: absolute;
   inset: 0;
   padding: 2px;
-  border-radius: 12px;
+  border-radius: 8px;
   background: linear-gradient(to right, var(--secondary), var(--primary)); /* azul a rosa */
   -webkit-mask: 
     linear-gradient(#fff 0 0) content-box, 

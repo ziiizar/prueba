@@ -18,7 +18,9 @@ export const {
   callbacks: {
     async session({ token, session }) {
       if (token.sub && session.user) {
+        console.log(token);
         session.user.id = token.sub;
+        session.user.state = token.state as string;
       }
 
       return session;
@@ -28,6 +30,8 @@ export const {
 
       const existingUser = await getUserById(token.sub);
       if (!existingUser) return token;
+
+      token.state = existingUser.state;
 
       return token;
     },

@@ -5,18 +5,18 @@ import { NotificationsIcon, UserIcon } from "@/icons";
 import {  useState } from "react";
 import { Button, ButtonWithGradientBorder } from "../ui/button";
 import Link from "next/link";
-import { routes } from "@/constants/routes";
-
+import { AUTH_ROUTES, routes } from "@/constants/routes";
+import { usePathname } from "next/navigation";
 
 const AuthButton = ({user}: {user: any}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  
+  const pathname = usePathname();
 
   return (
     <div className="relative flex items-center place-content-center">
       
-          {user ? (<>
+          {user ? (<div className="flex items-center gap-3">
             <button>
           <NotificationsIcon />
         </button>
@@ -39,26 +39,25 @@ const AuthButton = ({user}: {user: any}) => {
                   </span>
                 </div>
               </div>
-              <form >
-                <Button onClick={signOutAction}
+                <Button onClick={() => signOutAction()}
                   variant="ghost"
                   className="w-full justify-start"
                   type="submit"
                 >
                   Logout
                 </Button>
-              </form>
             </div>
           )}
-          </>) : (<div className="flex items-center gap-2">
-           <Link href={routes.login}>
-              <ButtonWithGradientBorder className="w-20 flex place-content-center items-center h-8" >Signup</ButtonWithGradientBorder>
-           </Link>
-           <Link href={routes.signup}>
-              <Button className="w-20" >Login</Button>
-           </Link>
-          </div>
-          )}
+          </div>) : (AUTH_ROUTES.includes(pathname) ? (null
+          ) : <div className="flex items-center gap-2">
+          <Link href={routes.signup}>
+             <ButtonWithGradientBorder className="w-20 flex place-content-center items-center h-8" >Signup</ButtonWithGradientBorder>
+          </Link>
+          <Link href={routes.login}>
+             <Button className="w-20" >Login</Button>
+          </Link>
+         </div>)
+        }
         </div>
   )
 }   
