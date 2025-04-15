@@ -17,11 +17,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
+       <body
         className={ cn(roboto.className, 'antialiased min-h-screen w-sm')}
       >
-        <Toaster />
+      <Toaster />
+      <Header />
         {children}
+      <Navbar />
+
       </body>
     </html>
   );

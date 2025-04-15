@@ -20,8 +20,14 @@ export const logout = async () => {
 }
 
 export const getUser = async () => {
-    const response = await authApi.get("/me");
-    return response.data;
+    try {
+        const response = await authApi.get("/me");
+        return response.data;
+    } catch (error) {
+        console.log('aaaaaaaaaaaaaaaaaaa');
+        console.log(error);
+        return null;
+    }
 }
 
 

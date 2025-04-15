@@ -30,9 +30,8 @@ export default function Home() {
 
   return (
     <>
-      <Header />
-      <PromoAlert />
       <main className="flex flex-col w-full bg-background px-4 gap-2 pt-6">
+      <PromoAlert />
         <Carrousel title="Todas las opciones">
           <BreweryCards
             data={allBreweries}
@@ -52,7 +51,6 @@ export default function Home() {
           ></BreweryCards>
         </Carrousel> */}
       </main>
-      <Navbar />
     </>
   );
 }

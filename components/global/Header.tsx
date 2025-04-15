@@ -1,31 +1,22 @@
-'use client'
-
-import { HamburgerMenuIcon, NotificationsIcon, UserIcon, ArrowBackIcon } from "@/icons"
-import { usePathname } from "next/navigation"
-import Link from "next/link"
-import { routes } from "@/constants/routes"
-
-const Header = () => {
-  const pathname = usePathname()
-  const isHome = pathname === '/'
+import { NotificationsIcon } from "@/icons";
+import MenuBack from "./MenuBack";
+import AuthButton from "./AuthButton";
+import { getUser } from "@/services/auth";
+const Header = async () => {
+  const user = await getUser();
+  console.log(user);
 
   return (
     <header className="flex justify-between items-center h-14 w-full px-4 bg-background text-foreground">
-      {isHome ? (
+      <MenuBack />
+      <div className="flex items-center gap-4 place-content-center justify-between">
         <button>
-          <HamburgerMenuIcon />
+          <NotificationsIcon />
         </button>
-      ) : (
-        <Link href={routes.home}>
-            <ArrowBackIcon />
-        </Link>
-      )}
-      <div className="flex items-center gap-4">
-        <button><NotificationsIcon /></button>
-        <button><UserIcon /></button>
+        <AuthButton user={user} />
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
