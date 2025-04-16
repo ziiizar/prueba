@@ -10,7 +10,6 @@ const BreweryInfo = ({
   brewery: Brewery;
   images: string[];
 }) => {
-  console.log(images);
   return (
     <article className="flex flex-col gap-5">
       <h3 className="text-foreground text-3xl font-bold ">{brewery?.name}</h3>

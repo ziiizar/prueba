@@ -8,8 +8,6 @@ import PromoAlert from "@/components/home/PromoAlert";
 import { useAuthUser } from "@/hooks";
 export default function Home() {
   const user = useAuthUser();
-  console.log('useeeeeeeeeeer');
-  console.log(user);
   const userLocation = user?.state || "California";
   const limit = 5;
 

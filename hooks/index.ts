@@ -11,8 +11,7 @@ export const useAuthUser = () => {
     useEffect( ()  => {
         const getAuthUser = async () => {
           const accessToken = localStorage.getItem("accessToken");
-          console.log('accessToken');
-          console.log(accessToken);
+   
           if (!accessToken) {
             return null;
           }
