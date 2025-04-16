@@ -7,9 +7,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const getRandomImage = async () : Promise<string | null> => {
-
-
+export const getRandomImage = async (): Promise<string | null> => {
   try {
     const response = await axios.get("https://api.unsplash.com/photos/random", {
       params: {
@@ -17,20 +15,22 @@ export const getRandomImage = async () : Promise<string | null> => {
         query: "brewery",
       },
     });
-    return response.data.urls.regular; // usando regular en lugar de raw para mejor rendimiento
+    return response.data.urls.regular;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.error("Error fetching random image:", error.message);
+      if (error.response?.status === 403) {
+        console.warn("Límite de peticiones excedido en Unsplash API");
+      } else {
+        console.warn("Error en la petición a Unsplash:", error.message);
+      }
     } else {
-      console.error("Unexpected error:", error);
+      console.warn("Error inesperado:", error);
     }
     return null;
   }
 };
 
-export const getBreweryImages = async () : Promise<string[]> => {
-
-
+export const getBreweryImages = async (): Promise<string[]> => {
   try {
     const response = await axios.get(`https://api.unsplash.com/search/photos`, {
       params: {
