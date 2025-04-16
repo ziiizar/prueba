@@ -13,8 +13,8 @@ Prueba tecnica
 
 ### Ramas 
 
-master
-auth
+- master
+- auth
 
 ### 🔧 Configuración del Entorno
 
@@ -30,6 +30,19 @@ npm install
 
 DATABASE_URL='postgresql://neondb_owner:npg_cSNw03zVXjRy@ep-delicate-mode-a4ck9jcf-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require'
 AUTH_SECRET="Mz5BnuAXCCGm9K4wyYhIyKvlN3p8+5gS+LZ8Nm556yE=" 
+
+4. Limpiar la db
+```bash
+npx prisma migrate reset
+
+```
+5. Ejecutar 
+```bash
+npx prisma migrate dev
+
+```
+
+   
 
 ### 🎮 Ejecutar el Proyecto
 
