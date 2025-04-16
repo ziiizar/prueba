@@ -1,7 +1,7 @@
 'use client'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { loginSchema, TSLoginSchema } from '@/actions/login/schema'
+import { signInSchema, TSSignInSchema } from '@/schemas/auth'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -12,21 +12,22 @@ import { routes } from '@/constants/routes'
 import { toast } from 'sonner'
 const LoginForm = () => {
   const router = useRouter()
-  const { register, handleSubmit, formState: { errors, isLoading } } = useForm<TSLoginSchema>({
-    resolver: zodResolver(loginSchema)
+  const { register, handleSubmit, formState: { errors, isLoading } } = useForm<TSSignInSchema>({
+    resolver: zodResolver(signInSchema)
   })
 
-  const onSubmit = async (data: TSLoginSchema) => {
+  const onSubmit = async (data: TSSignInSchema) => {
     try {
       const response = await login(data);
-      console.log(response);
       if (response.success) {
+        toast.success('Inicio de sesión exitoso')
         router.push(routes.home)
       }
       if (response.error) {
         toast.error(response.error)
       }
-    } catch (error) {
+    } catch (error) { 
+      toast.error('Error al iniciar sesión')
       console.error(error);
     }
   }

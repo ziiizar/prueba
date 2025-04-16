@@ -36,3 +36,10 @@ export type Opinion = {
         href: string;
    
 }
+
+export type AuthUser = {
+    id: string;
+    name: string;
+    email: string;
+    state: string;
+}

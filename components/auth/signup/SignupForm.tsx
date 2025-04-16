@@ -4,7 +4,7 @@ import React from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { signUpSchema, TSSignUpSchema } from "@/actions/signup/schema";
+import { signUpSchema, TSSignUpSchema } from "@/schemas/auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -29,19 +29,18 @@ const SignupForm = () => {
   const onSubmit = async (data: TSSignUpSchema) => {
     try {
       const response = await signup(data);
-      console.log(response);
-      if (response.success) {
+      if (response.success) { 
+        toast.success('Registro exitoso')
         router.push(routes.login)
       }
       if (response.error) {
         toast.error(response.error)
       }
     } catch (error) {
+      toast.error('Error al registrar usuario')
       console.error(error);
     }
 
-    console.log('ddddddddddddddd')
-    console.log(data)
   }
 
   return (

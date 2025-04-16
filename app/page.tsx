@@ -5,11 +5,12 @@ import BreweryCards from "@/components/home/BreweryCards";
 import { useBreweriesPagination } from "@/components/useBreweriesPagination";
 import { useBreweriesByCityPagination } from "@/components/useBreweriesByCityPagination";
 import PromoAlert from "@/components/home/PromoAlert";
-import { useSession } from "next-auth/react";
+import { useAuthUser } from "@/hooks";
 export default function Home() {
-  const session = useSession();
-  console.log(session);
-  const userLocation = session.data?.user?.state || "California";
+  const user = useAuthUser();
+  console.log('useeeeeeeeeeer');
+  console.log(user);
+  const userLocation = user?.state || "California";
   const limit = 5;
 
   const {
@@ -26,7 +27,7 @@ export default function Home() {
     loading: loadingByState,
     error: errorByState,
     fetchBreweries: fetchBreweriesByState,
-  } = useBreweriesByCityPagination({ limit, state: userLocation  });
+  } = useBreweriesByCityPagination({ limit, state: userLocation });
 
   return (
     <main className="flex flex-col w-full min-h-[calc(100vh-8rem)] bg-background">
@@ -44,7 +45,7 @@ export default function Home() {
           </Carrousel>
 
           {userLocation && (
-            <Carrousel title={`Opciones en ${userLocation }`}>
+            <Carrousel title={`Opciones en ${userLocation}`}>
               <BreweryCards
                 data={breweriesByState}
                 loading={loadingByState}
