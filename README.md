@@ -11,6 +11,11 @@ Prueba tecnica
 - Tener el servidor backend corrriendo (https://github.com/ziiizar/nestjs-test)
 
 
+### Ramas 
+
+master
+auth
+
 ### 🔧 Configuración del Entorno
 
 1. Clona el repositorio:
