@@ -1,6 +1,6 @@
 # Brewery Explorer
 
-Una aplicación web moderna para explorar cervecerías, construida con Next.js 14, TypeScript y Tailwind CSS.
+Prueba tecnica
 
 ## 🚀 Inicio Rápido
 
@@ -47,4 +47,3 @@ La aplicación estará disponible en [http://localhost:3000](http://localhost:30
 - Axios para peticiones HTTP
 - Unsplash API para imágenes
 - OpenBreweryDB API para datos de cervecerías
-
