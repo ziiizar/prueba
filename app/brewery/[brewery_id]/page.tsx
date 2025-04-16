@@ -1,7 +1,5 @@
 import BreweryInfo from "@/components/brewery/BreweryInfo";
 import Testimonials from "@/components/brewery/Testimonials";
-import Header from "@/components/global/Header";
-import Navbar from "@/components/global/Navbar";
 import { Button, ButtonWithGradientBorder } from "@/components/ui/button";
 import { getBreweryImages } from "@/lib/utils";
 import { getBreweryById } from "@/services/breweries";
@@ -16,8 +14,6 @@ const page = async ({
   const images = await getBreweryImages();
 
   return (
-    <>
-    <Header />
     <main className="flex flex-col w-full min-h-[calc(100vh-8rem)] bg-background">
       <div className="px-4 sm:px-6 lg:px-8 py-6 space-y-8 w-full max-w-7xl mx-auto">
         {brewery && <BreweryInfo brewery={brewery} images={images} />}
@@ -28,14 +24,12 @@ const page = async ({
           <Button size="xl" className="w-full sm:w-auto min-w-[200px]">
             Reservar Mesa
           </Button>
-          <ButtonWithGradientBorder >
+          <ButtonWithGradientBorder className="w-full sm:w-auto min-w-[200px]">
             Ver viajes de regreso
           </ButtonWithGradientBorder>
         </div>
       </div>
     </main>
-    <Navbar />
-    </>
   );
 };
 

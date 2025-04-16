@@ -3,12 +3,11 @@
 import Carrousel from "@/components/home/Carrousel";
 import BreweryCards from "@/components/home/BreweryCards";
 import { useBreweriesPagination } from "@/components/useBreweriesPagination";
-import { useBreweriesByCityPagination } from "@/components/useBreweriesByCityPagination";
+import { useBreweriesByStatePagination } from "@/components/useBreweriesByStatePagination";
 import PromoAlert from "@/components/home/PromoAlert";
 import { useSession } from "next-auth/react";
 export default function Home() {
   const session = useSession();
-  console.log(session);
   const userLocation = session.data?.user?.state || "California";
   const limit = 5;
 
@@ -26,7 +25,7 @@ export default function Home() {
     loading: loadingByState,
     error: errorByState,
     fetchBreweries: fetchBreweriesByState,
-  } = useBreweriesByCityPagination({ limit, state: userLocation  });
+  } = useBreweriesByStatePagination({ limit, state: userLocation  });
 
   return (
     <main className="flex flex-col w-full min-h-[calc(100vh-8rem)] bg-background">

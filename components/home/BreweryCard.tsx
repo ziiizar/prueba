@@ -18,7 +18,7 @@ const BreweryCard = ({ brewery }: { brewery: Brewery }) => {
         const image = await getRandomImage();
         setRandomImage(image);
       } catch (error) {
-        console.error("Error loading brewery image");
+        console.error("Error loading brewery image", error);
       } finally {
         setIsLoading(false);
       }

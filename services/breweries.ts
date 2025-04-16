@@ -15,11 +15,10 @@ export const getBreweries = async (limit: number = 10, page: number = 1): Promis
 export const getBreweryByState = async (state: string, limit: number = 10, page: number = 1): Promise<Brewery[]> => {
     try {
         const response = await api.get('/breweries', {params: {by_state: state, per_page: limit, page}});
-        console.log('stateee');
-        console.log(response.data);
+    
         return response.data;
     } catch (error) {
-        console.error(error);
+        console.error('Error fetching breweries by state:', error);
         return [];
     }
 }

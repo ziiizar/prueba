@@ -8,7 +8,6 @@ import { TSLoginSchema } from "./schema";
 export const login = async (values: TSLoginSchema) => {
   const { email, password } = values;
 
-  console.log(email, password);
 
   const existingUser = await getUserByEmail(email);
 

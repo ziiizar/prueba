@@ -16,7 +16,6 @@ export const signUp = async (values: TSSignUpSchema) => {
   const { email, password, name, state } = validatedFields.data;
 
   try {
-    console.log("hola");
 
     const existingUser = await getUserByEmail(email);
 
@@ -25,7 +24,6 @@ export const signUp = async (values: TSSignUpSchema) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log(hashedPassword);
     await db.user.create({
       data: {
         name,

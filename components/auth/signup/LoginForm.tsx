@@ -19,7 +19,6 @@ const LoginForm = () => {
 
   const onSubmit = async (data: TSLoginSchema) => {
     const response = await login(data)
-    console.log(data)
     if (response.success) {
       toast.success(response.success);
       router.push(routes.home)
