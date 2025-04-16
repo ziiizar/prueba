@@ -1,7 +1,7 @@
 'use client'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { signInSchema, TSSignInSchema } from '@/schemas/auth'
+import { loginSchema, TSLoginSchema } from '@/actions/login/schema'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -12,11 +12,11 @@ import { routes } from '@/constants/routes'
 import { toast } from 'sonner'
 const LoginForm = () => {
   const router = useRouter()
-  const { register, handleSubmit, formState: { errors, isLoading } } = useForm<TSSignInSchema>({
-    resolver: zodResolver(signInSchema)
+  const { register, handleSubmit, formState: { errors, isLoading } } = useForm<TSLoginSchema>({
+    resolver: zodResolver(loginSchema)
   })
 
-  const onSubmit = async (data: TSSignInSchema) => {
+  const onSubmit = async (data: TSLoginSchema) => {
     try {
       const response = await login(data);
       console.log(response);
@@ -33,18 +33,24 @@ const LoginForm = () => {
 
   return (
     <form className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="email">Correo electrónico</Label>
+          <div className="">
+            <Label className="mb-2" htmlFor="email">Correo electrónico</Label>
             <Input 
-                {...register("email")}
+              {...register("email")}
               id="email" 
               type="email" 
               placeholder="ejemplo@correo.com"
+              className={errors.email ? "border-red-500 focus:ring-red-500" : ""}
             />
+            {errors.email && (
+              <p className="mt-1 text-xs text-red-600 font-medium animate-shake">
+                {errors.email.message}
+              </p>
+            )}
           </div>
 
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
+          <div className="">
+            <div className="flex items-center justify-between mb-2">
               <Label htmlFor="password">Contraseña</Label>
               <Link 
                 href="/forgot-password" 
@@ -54,19 +60,26 @@ const LoginForm = () => {
               </Link>
             </div>
             <Input 
-                {...register("password")}
+              {...register("password")}
               id="password" 
               type="password" 
               placeholder="••••••••"
+              className={errors.password ? "border-red-500 focus:ring-red-500" : ""}
             />
+            {errors.password && (
+              <p className="mt-1 text-xs text-red-600 font-medium animate-shake">
+                {errors.password.message}
+              </p>
+            )}
           </div>
 
           <Button 
             type="submit" 
             className="w-full"
             onClick={handleSubmit(onSubmit)}
+            disabled={isLoading}
           >
-            Iniciar sesión
+            {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
           </Button>
         </form>
   )

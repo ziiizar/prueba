@@ -2,13 +2,14 @@
 
 import Carrousel from "@/components/home/Carrousel";
 import BreweryCards from "@/components/home/BreweryCards";
-import Header from "@/components/global/Header";
-import Navbar from "@/components/global/Navbar";
 import { useBreweriesPagination } from "@/components/useBreweriesPagination";
 import { useBreweriesByCityPagination } from "@/components/useBreweriesByCityPagination";
 import PromoAlert from "@/components/home/PromoAlert";
+import { useSession } from "next-auth/react";
 export default function Home() {
-  const userLocation = "California";
+  const session = useSession();
+  console.log(session);
+  const userLocation = session.data?.user?.state || "California";
   const limit = 5;
 
   const {
@@ -25,32 +26,36 @@ export default function Home() {
     loading: loadingByState,
     error: errorByState,
     fetchBreweries: fetchBreweriesByState,
-  } = useBreweriesByCityPagination({ limit, state: userLocation });
-
+  } = useBreweriesByCityPagination({ limit, state: userLocation  });
 
   return (
-    <>
-      <main className="flex flex-col w-full bg-background px-4 gap-2 pt-6">
-      <PromoAlert />
-        <Carrousel title="Todas las opciones">
-          <BreweryCards
-            data={allBreweries}
-            loading={loading}
-            error={error}
-            hasMore={hasMore}
-            fetchMoreData={fetchBreweries}
-          ></BreweryCards>
-        </Carrousel>
-        {/* <Carrousel title="Opciones en California">
-          <BreweryCards
-            data={breweriesByCity}
-            loading={loadingByCity}
-            error={errorByCity}
-            hasMore={hasMoreByCity}
-            fetchMoreData={fetchBreweriesByCity}
-          ></BreweryCards>
-        </Carrousel> */}
-      </main>
-    </>
+    <main className="flex flex-col w-full min-h-[calc(100vh-8rem)] bg-background">
+      <div className=" sm:px-6 lg:px-8 py-6 space-y-6 w-full max-w-7xl mx-auto">
+        <PromoAlert />
+        <section className="space-y-6 px-4">
+          <Carrousel title="Todas las opciones">
+            <BreweryCards
+              data={allBreweries}
+              loading={loading}
+              error={error}
+              hasMore={hasMore}
+              fetchMoreData={fetchBreweries}
+            />
+          </Carrousel>
+
+          {userLocation && (
+            <Carrousel title={`Opciones en ${userLocation }`}>
+              <BreweryCards
+                data={breweriesByState}
+                loading={loadingByState}
+                error={errorByState}
+                hasMore={hasMoreByState}
+                fetchMoreData={fetchBreweriesByState}
+              />
+            </Carrousel>
+          )}
+        </section>
+      </div>
+    </main>
   );
 }

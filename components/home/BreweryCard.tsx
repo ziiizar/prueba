@@ -8,13 +8,20 @@ import { routes } from "@/constants/routes";
 import { AddressIcon, PhoneIcon } from "@/icons";
 
 const BreweryCard = ({ brewery }: { brewery: Brewery }) => {
-
   const [randomImage, setRandomImage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchRandomImage = async () => {
-      const randomImage = await getRandomImage();
-      setRandomImage(randomImage);
+      setIsLoading(true);
+      try {
+        const image = await getRandomImage();
+        setRandomImage(image);
+      } catch (error) {
+        console.error("Error loading brewery image");
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchRandomImage();
   }, []);
@@ -26,10 +33,17 @@ const BreweryCard = ({ brewery }: { brewery: Brewery }) => {
         <Card.Image 
           alt={brewery.name} 
           src={randomImage || '/images/default-brewery.jpg'} 
+          className={isLoading ? "animate-pulse" : ""}
         />
         <Card.Info>
-          <Card.Text className="flex items-center gap-2"><AddressIcon />{brewery.street}</Card.Text>
-          <Card.Text className="flex items-center gap-2"><PhoneIcon />{brewery.phone}</Card.Text>
+          <Card.Text className="flex items-center gap-2">
+            <AddressIcon />
+            {brewery.street || "Dirección no disponible"}
+          </Card.Text>
+          <Card.Text className="flex items-center gap-2">
+            <PhoneIcon />
+            {brewery.phone || "Teléfono no disponible"}
+          </Card.Text>
         </Card.Info>
       </Card.Content>
       <Card.Action href={`${routes.brewery}/${brewery.id}`} />

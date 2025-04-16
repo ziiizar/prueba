@@ -1,21 +1,25 @@
 'use client'
 
-import { UserIcon } from "@/icons";
+import {signOutAction} from "../../actions/signOut/action";
+import { NotificationsIcon, UserIcon } from "@/icons";
 import {  useState } from "react";
-import { Button } from "../ui/button";
+import { Button, ButtonWithGradientBorder } from "../ui/button";
 import Link from "next/link";
-import { routes } from "@/constants/routes";
-import { logout } from "@/services/auth";
+import { AUTH_ROUTES, routes } from "@/constants/routes";
+import { usePathname } from "next/navigation";
 
 const AuthButton = ({user}: {user: any}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  
+  const pathname = usePathname();
 
   return (
     <div className="relative flex items-center place-content-center">
       
-          {user ? (<>
+          {user ? (<div className="flex items-center gap-3">
+            <button>
+          <NotificationsIcon />
+        </button>
             <button 
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             className="rounded-full"
@@ -35,22 +39,25 @@ const AuthButton = ({user}: {user: any}) => {
                   </span>
                 </div>
               </div>
-              <form >
-                <Button onClick={logout}
+                <Button onClick={() => signOutAction()}
                   variant="ghost"
                   className="w-full justify-start"
                   type="submit"
                 >
                   Logout
                 </Button>
-              </form>
             </div>
           )}
-          </>) : (
-           <Link href={routes.login}>
-              <Button className="w-20" >Login</Button>
-           </Link>
-          )}
+          </div>) : (AUTH_ROUTES.includes(pathname) ? (null
+          ) : <div className="flex items-center gap-2">
+          <Link href={routes.signup}>
+             <ButtonWithGradientBorder className="w-20 flex place-content-center items-center h-8" >Signup</ButtonWithGradientBorder>
+          </Link>
+          <Link href={routes.login}>
+             <Button className="w-20" >Login</Button>
+          </Link>
+         </div>)
+        }
         </div>
   )
 }   
